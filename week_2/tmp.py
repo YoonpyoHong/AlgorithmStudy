@@ -1,25 +1,29 @@
-import sys
-sys.setrecursionlimit(10000)
+from sys import stdin as s
 
-N, M = map(int, sys.stdin.readline().split())
-a = list(map(int, sys.stdin.readline().split()))
-arr = []
-cnt = 0
-def combination(start, num):
-    global cnt
-    if len(arr) == num and sum(arr)==M:     #부분수열의 합이 M
-        #print(' '.join(map(str,arr)))
-        cnt += 1
-        return
-    else:
-        for i in range(start, N+1): 
-            arr.append(a[i-1]) 
-            combination(i+1, num)
-            arr.pop()
+N = int(s.readline().rstrip())
+liquid = list(map(int, s.readline().rstrip().split(' ')))
+liquid.sort()
 
+left, right = 0, N-1
 
-for i in range(N+1): #모든 부분수열 찾기
-    combination(1, i)
-if M == 0:
-    cnt -= 1     # ''제외
-print(cnt)    #''는 제외
+answer = abs(liquid[right] + liquid[left])
+left_value, right_value = liquid[left], liquid[right]
+
+while left < right:
+    total = liquid[left] + liquid[right]
+
+    if abs(total) < answer:
+        answer = abs(total)
+        left_value = liquid[left]
+        right_value = liquid[right]
+
+        if answer == 0:
+            break
+    # 양수이면
+    if total > 0:
+        right -= 1
+    # 음수이면
+    elif total < 0:
+        left += 1
+
+print(left_value, right_value)
