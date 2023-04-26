@@ -8,15 +8,15 @@ directR = [0,0,0,0,1,-1]
 directC = [0,0,1,-1,0,0]
 directH = [1,-1,0,0,0,0]
 
-maxDate = 0
-
 def BFS():
+    global H, N, M
     q = deque()
     for i in range(H):
         for j in range(N):
             for k in range(M):
                if tomatoArr[i][j][k] == 1:
                    q.append([i,j,k,0])
+    now=0
     while len(q) != 0:
         nowH, nowR, nowC , now = q.popleft()
         for i in range(6):
@@ -30,6 +30,7 @@ def BFS():
     return now
 
 def tomatoCheck():
+    global H, N, M
     for i in range(H):
         for j in range(N):
             for k in range(M):
