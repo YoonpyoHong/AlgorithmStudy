@@ -1,7 +1,8 @@
 import sys
 from functools import cmp_to_key
 
-sentence = list(sys.stdin.readline().strip()) #입력
+sys.stdin = open("input.txt","rt")
+sentence = sys.stdin.readline().strip() #입력
 N = len(sentence)
 suffixArray = [i for i in range(N)]# 결과물 suffixArray가 될 배열
 group = [0 for _ in range(N+1)] # 그룹
@@ -14,7 +15,7 @@ tmpGroup[suffixArray[0]] = 0
 
 def sortRule(x,y): # 정렬 규칙
     if group[x] == group[y]: # 앞의 값이 같으면 다음 step의 값을 비교한다.
-        return group[x+step] - group[y+step] 
+        return group[x+step] - group[y+step]
     return group[x] - group[y]
 
 for idx in range(N): # step이 0일 때는 일단 각위치의 글자의 아스키코드에 맞춰서 그룹화를 시켜준다.
@@ -34,21 +35,18 @@ while step < N:
     if tmpGroup[N-1] == N-1: #모든 친구들이 다른 그룹으로 나누어진다면 다른 그룹으로 나누어진다.
         break
     step *= 2 #단계를 2배로 한다.
-suffixArray.sort(key=cmp_to_key(sortRule))
-print(suffixArray)
-print(group)
 
-lcp =[0 for _ in range(N)]
-
+LCP = [0]*(N)
+count = 0
+sentence+="$"
 for idx in range(N):
-    idx2 = 0
-    if group[idx]:
-        idxCompare = suffixArray[group[idx]-1]
-        while sentence[idx + idx2] == sentence[idxCompare + idx2]: idx2+=1
-        lcp[group[idx]] = idx2
-print(lcp)
-
-
+    if group[idx] == 0:
+        LCP[group[idx]] = -1
+        continue
+    while sentence[idx+ count] == sentence[suffixArray[group[idx]-1] + count]: count+=1
+    LCP[group[idx]] = count
+    count = max(0, count-1)
+print(LCP)
 
 
     
