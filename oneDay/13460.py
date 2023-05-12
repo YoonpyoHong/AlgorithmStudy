@@ -17,6 +17,11 @@ def searchMarble():
                 red = [i,j]
     return blue, red
 
+def bigMove(blueR, blueC, redR, redC, direction):
+    #나중에 피곤
+    blueR
+
+
 def bfs(blue, red):
     q = deque()
     q.append([blue[0], blue[1], red[0], red[1],0])
