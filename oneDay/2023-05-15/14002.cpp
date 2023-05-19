@@ -44,16 +44,16 @@ int main(){
     cout << search.size() << "\n";
     int idx = search.size()-1;
     for(int j = N-1; j>=0; j--){   
-        cout << dp[j]  << " ";
+        // cout << dp[j]  << " ";
         if(dp[j]==idx){
             result.push(numArr[j]);
             idx--;
         }
     }
-    cout << "\n";
-    while(result.size()){
-        cout << result.top() << " ";
-        result.pop();
-    }
-    return 0;
+    // cout << "\n";
+//     while(result.size()){
+//         cout << result.top() << " ";
+//         result.pop();
+//     }
+//     return 0;
 }
